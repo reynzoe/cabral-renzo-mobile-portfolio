@@ -192,7 +192,7 @@ export default function HomeSection({ theme, scrollY }: Props) {
                         marginBottom: 32,
                     }}>
                         <Image
-                            source={require('../assets/images/profile.jpeg')}
+                            source={require('../assets/images/homepic.jpeg')}
                             style={{
                                 width: 180,
                                 height: 180,
@@ -206,8 +206,10 @@ export default function HomeSection({ theme, scrollY }: Props) {
                 <Text style={[styles.bigName, { color: theme.text }]}>
                     RENZO{"\n"}CABRAL
                 </Text><Text style={[styles.tagline, { color: theme.subtext }]}>
-                Aspiring developer passionate about building clean and usable digital
-                experiences.
+                Hi! I'm Renzo, a passionate developer who loves turning ideas into interactive
+                digital experiences. From retro games to modern web apps, I build with creativity
+                and attention to detail. Let's create something amazing together!
+
             </Text>
             </View>
         </>
