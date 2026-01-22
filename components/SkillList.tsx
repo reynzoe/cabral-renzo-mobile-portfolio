@@ -6,10 +6,10 @@ type Props = {
 };
 
 const SKILLS = [
-    "JavaScript (Mid)",
-    "HTML (Mid)",
-    "CSS (Mid)",
-    "Python (Mid)",
+    "JavaScript ",
+    "HTML ",
+    "CSS ",
+    "Python ",
 ];
 
 export default function SkillList({ theme }: Props) {
