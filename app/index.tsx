@@ -1,20 +1,14 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import {
-    View,
-    Text,
-    Animated,
-    TouchableOpacity,
-    ScrollView,
-    Linking,
-    Image,
-} from "react-native";
+import { View, Text, Animated, TouchableOpacity, ScrollView, Linking } from "react-native";
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import ProjectCard from "../components/ProjectCard";
 import ProjectModal from "../components/ProjectModal";
+import HomeSection from "../components/HomeSection";
+import SkillsSection from "../components/SkillsSection";
+import ContactFooter from "../components/ContactFooter";
 import { Project, Theme } from "../components/types";
 import { styles } from "./styles";
-import { FontAwesome } from '@expo/vector-icons';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -46,24 +40,21 @@ const PROJECTS: Project[] = [
     },
     {
         title: "Starkiller",
-        description:
-            "Space shooter game inspired by classic arcade games. Features wave-based enemies, power-ups, and smooth arcade-style gameplay.",
+        description: "Space shooter game inspired by classic arcade games. Features wave-based enemies, power-ups, and smooth arcade-style gameplay.",
         image: require("../assets/images/starkiller.png"),
         technologies: ["JavaScript", "Canvas API", "Game Physics"],
         features: ["Classic arcade mechanics", "Enemy AI", "Score tracking"],
     },
     {
         title: "Portfolio Website",
-        description:
-            "Personal portfolio website showcasing creative design work and projects with a modern, user-friendly interface.",
+        description: "Personal portfolio website showcasing creative design work and projects with a modern, user-friendly interface.",
         image: require("../assets/images/webport.png"),
         technologies: ["React", "TypeScript", "CSS"],
         features: ["Responsive design", "Smooth animations", "Project gallery"],
     },
     {
         title: "Pokémon Companion",
-        description:
-            "A Pokémon companion app with stats and information. Features include detailed Pokédex entries, type effectiveness calculator, and team builder.",
+        description: "A Pokémon companion app with stats and information. Features include detailed Pokédex entries, type effectiveness calculator, and team builder.",
         image: require("../assets/images/pokemon.png"),
         technologies: ["React Native", "API Integration", "TypeScript"],
         features: ["Pokédex database", "Type calculator", "Team management"],
@@ -150,265 +141,8 @@ export default function Index() {
             )}
             scrollEventThrottle={16}
         >
-            <Animated.View style={styles.backgroundLayer} pointerEvents="none">
-                {/* Large blob 1 */}
-                <Animated.View
-                    style={[
-                        styles.blob,
-                        {
-                            width: 400,
-                            height: 400,
-                            borderRadius: 200,
-                            backgroundColor: theme.primary,
-                            opacity: 0.15,
-                            top: -100,
-                            right: -80,
-                            transform: [
-                                {
-                                    translateY: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [0, 60],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                                {
-                                    rotate: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: ['0deg', '45deg'],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                            ],
-                        },
-                    ]}
-                />
-
-                {/* Large blob 2 */}
-                <Animated.View
-                    style={[
-                        styles.blob,
-                        {
-                            width: 350,
-                            height: 350,
-                            borderRadius: 175,
-                            backgroundColor: theme.accent,
-                            opacity: 0.18,
-                            bottom: 100,
-                            left: -60,
-                            transform: [
-                                {
-                                    translateY: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [0, -70],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                                {
-                                    scale: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [1, 0.8],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                            ],
-                        },
-                    ]}
-                />
-
-                {/* Floating square */}
-                <Animated.View
-                    style={[
-                        styles.blob,
-                        {
-                            width: 180,
-                            height: 180,
-                            borderRadius: 40,
-                            backgroundColor: theme.primary,
-                            opacity: 0.12,
-                            top: 200,
-                            left: 30,
-                            transform: [
-                                {
-                                    translateY: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [0, -40],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                                {
-                                    rotate: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: ['0deg', '-90deg'],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                            ],
-                        },
-                    ]}
-                />
-
-                {/* Floating circle */}
-                <Animated.View
-                    style={[
-                        styles.blob,
-                        {
-                            width: 120,
-                            height: 120,
-                            borderRadius: 60,
-                            backgroundColor: theme.accent,
-                            opacity: 0.2,
-                            top: 400,
-                            right: 40,
-                            transform: [
-                                {
-                                    translateY: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [0, 80],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                                {
-                                    translateX: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [0, -40],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                            ],
-                        },
-                    ]}
-                />
-
-                {/* Small accent circle */}
-                <Animated.View
-                    style={[
-                        styles.blob,
-                        {
-                            width: 80,
-                            height: 80,
-                            borderRadius: 40,
-                            backgroundColor: theme.primary,
-                            opacity: 0.25,
-                            bottom: 300,
-                            right: 100,
-                            transform: [
-                                {
-                                    scale: scrollY.interpolate({
-                                        inputRange: [0, 400],
-                                        outputRange: [1, 1.3],
-                                        extrapolate: "clamp",
-                                    }),
-                                },
-                            ],
-                        },
-                    ]}
-                />
-            </Animated.View>
-
-            <View style={styles.nameContainer}>
-                <Animated.View
-                    style={{
-                        transform: [
-                            {
-                                translateY: scrollY.interpolate({
-                                    inputRange: [0, 400],
-                                    outputRange: [0, -30],
-                                    extrapolate: "clamp",
-                                }),
-                            },
-                            {
-                                rotate: scrollY.interpolate({
-                                    inputRange: [0, 400],
-                                    outputRange: ['0deg', '5deg'],
-                                    extrapolate: "clamp",
-                                }),
-                            },
-                        ],
-                    }}
-                >
-                    <View style={{
-                        padding: 8,
-                        borderRadius: 24,
-                        borderWidth: 3,
-                        borderColor: theme.primary,
-                        backgroundColor: theme.card,
-                        shadowColor: "#000",
-                        shadowOffset: { width: 0, height: 8 },
-                        shadowOpacity: 0.3,
-                        shadowRadius: 12,
-                        elevation: 10,
-                        marginBottom: 32,
-                    }}>
-                        <Animated.Image
-                            source={require('../assets/images/profile.jpeg')}
-                            style={{
-                                width: 180,
-                                height: 180,
-                                borderRadius: 16,
-                            }}
-                            resizeMode="cover"
-                        />
-                    </View>
-                </Animated.View>
-
-                <Text style={[styles.bigName, { color: theme.text }]}>
-                    RENZO{"\n"}CABRAL
-                </Text>
-                <Text style={[styles.tagline, { color: theme.subtext }]}>
-                    Aspiring developer passionate about building clean and usable digital
-                    experiences.
-                </Text>
-            </View>
-
-            <View style={styles.skillsSection}>
-                <Text style={[styles.sectionTitle, { color: theme.text }]}>
-                    My Skills
-                </Text>
-                <View style={styles.skillsGrid}>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>💻</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            JavaScript
-                        </Text>
-                    </View>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>🌐</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            HTML/CSS
-                        </Text>
-                    </View>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>🐍</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            Python
-                        </Text>
-                    </View>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>📱</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            Frontend Dev
-                        </Text>
-                    </View>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>🗄️</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            Databases & SQL
-                        </Text>
-                    </View>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>📊</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            Statistics
-                        </Text>
-                    </View>
-                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
-                        <Text style={styles.skillIcon}>🤖</Text>
-                        <Text style={[styles.skillName, { color: theme.text }]}>
-                            Machine Learning
-                        </Text>
-                    </View>
-                </View>
-            </View>
+            <HomeSection theme={theme} scrollY={scrollY} />
+            <SkillsSection theme={theme} />
 
             <View style={styles.projectsSection}>
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>My Latest Works</Text>
@@ -424,59 +158,9 @@ export default function Index() {
                 ))}
             </View>
 
-            {/* Contact Footer */}
-            <View style={[styles.contactFooter, { backgroundColor: theme.card }]}>
-                <Text style={[styles.footerTitle, { color: theme.text }]}>
-                    Let's Connect
-                </Text>
-                <View style={styles.socialLinks}>
-                    <TouchableOpacity
-                        style={[styles.socialButton, { backgroundColor: theme.background }]}
-                        onPress={() => Linking.openURL("https://www.facebook.com/renzolouiscabral")}
-                    >
-                        <FontAwesome name="facebook" size={24} color={theme.primary} />
-                        <Text style={[styles.socialLabel, { color: theme.text }]}>Facebook</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.socialButton, { backgroundColor: theme.background }]}
-                        onPress={() => Linking.openURL("https://github.com/reynzoe")}
-                    >
-                        <FontAwesome name="github" size={24} color={theme.primary} />
-                        <Text style={[styles.socialLabel, { color: theme.text }]}>GitHub</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.socialButton, { backgroundColor: theme.background }]}
-                        onPress={() => Linking.openURL("https://instagram.com/rnzcbrl")}
-                    >
-                        <FontAwesome name="instagram" size={24} color={theme.primary} />
-                        <Text style={[styles.socialLabel, { color: theme.text }]}>Instagram</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.socialButton, { backgroundColor: theme.background }]}
-                        onPress={() => Linking.openURL("https://www.linkedin.com/in/renzo-cabral-958604380")}
-                    >
-                        <FontAwesome name="linkedin" size={24} color={theme.primary} />
-                        <Text style={[styles.socialLabel, { color: theme.text }]}>LinkedIn</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.socialButton, { backgroundColor: theme.background }]}
-                        onPress={() => Linking.openURL("mailto:rnzcbrl@gmail.com")}
-                    >
-                        <FontAwesome name="envelope" size={24} color={theme.primary} />
-                        <Text style={[styles.socialLabel, { color: theme.text }]}>Email</Text>
-                    </TouchableOpacity>
-                </View>
-                <Text style={[styles.footerText, { color: theme.subtext }]}>
-                    © 2025 Renzo Cabral. All rights reserved.
-                </Text>
-            </View>
+            <ContactFooter theme={theme} />
         </Animated.ScrollView>
     );
-
 
     const renderProjects = () => (
         <ScrollView
@@ -505,25 +189,22 @@ export default function Index() {
             <Text style={[styles.sectionTitle, { color: theme.text }]}>Get in Touch</Text>
             <TouchableOpacity
                 style={[styles.contactButton, { backgroundColor: theme.card }]}
-                onPress={() => Linking.openURL("mailto:your.email@example.com")}
+                onPress={() => Linking.openURL("mailto:rnzcbrl@gmail.com")}
             >
                 <Text style={[styles.contactButtonText, { color: theme.text }]}>Email</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.contactButton, { backgroundColor: theme.card }]}
-                onPress={() => Linking.openURL("https://github.com/yourusername")}
+                onPress={() => Linking.openURL("https://github.com/reynzoe")}
             >
                 <Text style={[styles.contactButtonText, { color: theme.text }]}>GitHub</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.contactButton, { backgroundColor: theme.card }]}
-                onPress={() => Linking.openURL("https://linkedin.com/in/yourusername")}
+                onPress={() => Linking.openURL("https://www.linkedin.com/in/renzo-cabral-958604380")}
             >
-                <Text style={[styles.contactButtonText, { color: theme.text }]}>
-                    LinkedIn
-                </Text>
-            </TouchableOpacity>
-        </ScrollView>
+                <Text style={[styles.contactButtonText, { color: theme.text }]}>LinkedIn</Text>
+            </TouchableOpacity></ScrollView>
     );
 
     if (!appReady) {
@@ -534,61 +215,54 @@ export default function Index() {
         <View
             style={[styles.container, { backgroundColor: theme.background }]}
             onLayout={onLayoutRootView}
-        ><View style={styles.menuButtonContainer}>
-            <View style={[styles.dynamicIsland, { backgroundColor: "#3d3d2e" }]}>
-                <TouchableOpacity
-                    onPress={() => setDarkMode(!darkMode)}
-                    style={styles.themeButton}
-                >
-                    <Text style={styles.themeIcon}>{darkMode ? "☀️" : "🌙"}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
-                    <Text style={[styles.menuButtonText, { color: "#e8e8e8" }]}>
-                        Menu
-                    </Text>
-                    <Text style={[styles.menuIcon, { color: "#e8e8e8" }]}>
-                        {menuOpen ? "✕" : "☰"}
-                    </Text>
-                </TouchableOpacity>
-            </View>
+        >
+            <View style={styles.menuButtonContainer}>
+                <View style={[styles.dynamicIsland, { backgroundColor: "#3d3d2e" }]}>
+                    <TouchableOpacity
+                        onPress={() => setDarkMode(!darkMode)}
+                        style={styles.themeButton}
+                    >
+                        <Text style={styles.themeIcon}>{darkMode ? "☀️" : "🌙"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
+                        <Text style={[styles.menuButtonText, { color: "#e8e8e8" }]}>Menu</Text>
+                        <Text style={[styles.menuIcon, { color: "#e8e8e8" }]}>
+                            {menuOpen ? "✕" : "☰"}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
-            <Animated.View
-                style={[
-                    styles.dropdownMenu,
-                    {
-                        backgroundColor: "#3d3d2e",
-                        height: menuHeight,
-                        opacity: menuOpacity,
-                    },
-                ]}
-                pointerEvents={menuOpen ? "auto" : "none"}
-            >
-                <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={() => navigateTo("home")}
+                <Animated.View
+                    style={[
+                        styles.dropdownMenu,
+                        {
+                            backgroundColor: "#3d3d2e",
+                            height: menuHeight,
+                            opacity: menuOpacity,
+                        },
+                    ]}
+                    pointerEvents={menuOpen ? "auto" : "none"}
                 >
-                    <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>
-                        Home
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={() => navigateTo("projects")}
-                >
-                    <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>
-                        Projects
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={() => navigateTo("contact")}
-                >
-                    <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>
-                        Contact
-                    </Text>
-                </TouchableOpacity>
-            </Animated.View>
-        </View>
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={() => navigateTo("home")}
+                    >
+                        <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>Home</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={() => navigateTo("projects")}
+                    >
+                        <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>Projects</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={() => navigateTo("contact")}
+                    >
+                        <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>Contact</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+            </View>
 
             {currentView === "home" && renderHome()}
             {currentView === "projects" && renderProjects()}
