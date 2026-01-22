@@ -14,6 +14,7 @@ import ProjectCard from "../components/ProjectCard";
 import ProjectModal from "../components/ProjectModal";
 import { Project, Theme } from "../components/types";
 import { styles } from "./styles";
+import { FontAwesome } from '@expo/vector-icons';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -359,6 +360,56 @@ export default function Index() {
                 </Text>
             </View>
 
+            <View style={styles.skillsSection}>
+                <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                    My Skills
+                </Text>
+                <View style={styles.skillsGrid}>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>💻</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            JavaScript
+                        </Text>
+                    </View>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>🌐</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            HTML/CSS
+                        </Text>
+                    </View>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>🐍</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            Python
+                        </Text>
+                    </View>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>📱</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            Frontend Dev
+                        </Text>
+                    </View>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>🗄️</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            Databases & SQL
+                        </Text>
+                    </View>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>📊</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            Statistics
+                        </Text>
+                    </View>
+                    <View style={[styles.skillCard, { backgroundColor: theme.card }]}>
+                        <Text style={styles.skillIcon}>🤖</Text>
+                        <Text style={[styles.skillName, { color: theme.text }]}>
+                            Machine Learning
+                        </Text>
+                    </View>
+                </View>
+            </View>
+
             <View style={styles.projectsSection}>
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>My Latest Works</Text>
                 {PROJECTS.map((project, index) => (
@@ -371,6 +422,57 @@ export default function Index() {
                         index={index}
                     />
                 ))}
+            </View>
+
+            {/* Contact Footer */}
+            <View style={[styles.contactFooter, { backgroundColor: theme.card }]}>
+                <Text style={[styles.footerTitle, { color: theme.text }]}>
+                    Let's Connect
+                </Text>
+                <View style={styles.socialLinks}>
+                    <TouchableOpacity
+                        style={[styles.socialButton, { backgroundColor: theme.background }]}
+                        onPress={() => Linking.openURL("https://www.facebook.com/renzolouiscabral")}
+                    >
+                        <FontAwesome name="facebook" size={24} color={theme.primary} />
+                        <Text style={[styles.socialLabel, { color: theme.text }]}>Facebook</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.socialButton, { backgroundColor: theme.background }]}
+                        onPress={() => Linking.openURL("https://github.com/reynzoe")}
+                    >
+                        <FontAwesome name="github" size={24} color={theme.primary} />
+                        <Text style={[styles.socialLabel, { color: theme.text }]}>GitHub</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.socialButton, { backgroundColor: theme.background }]}
+                        onPress={() => Linking.openURL("https://instagram.com/rnzcbrl")}
+                    >
+                        <FontAwesome name="instagram" size={24} color={theme.primary} />
+                        <Text style={[styles.socialLabel, { color: theme.text }]}>Instagram</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.socialButton, { backgroundColor: theme.background }]}
+                        onPress={() => Linking.openURL("https://www.linkedin.com/in/renzo-cabral-958604380")}
+                    >
+                        <FontAwesome name="linkedin" size={24} color={theme.primary} />
+                        <Text style={[styles.socialLabel, { color: theme.text }]}>LinkedIn</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={[styles.socialButton, { backgroundColor: theme.background }]}
+                        onPress={() => Linking.openURL("mailto:rnzcbrl@gmail.com")}
+                    >
+                        <FontAwesome name="envelope" size={24} color={theme.primary} />
+                        <Text style={[styles.socialLabel, { color: theme.text }]}>Email</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text style={[styles.footerText, { color: theme.subtext }]}>
+                    © 2025 Renzo Cabral. All rights reserved.
+                </Text>
             </View>
         </Animated.ScrollView>
     );
