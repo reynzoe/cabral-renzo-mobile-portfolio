@@ -3,100 +3,130 @@ import {
     View,
     Text,
     StyleSheet,
+    Image,
+    TouchableOpacity,
+    Linking,
     FlatList,
-    SafeAreaView,
 } from "react-native";
-
-import { lightTheme, darkTheme } from "../theme/colors";
-import ProfileHeader from "../components/ProfileHeader";
-import SkillList from "../components/SkillList";
-import ProjectCard from "../components/ProjectCard";
 import ThemeToggle from "../components/ThemeToggle";
+import ProjectCard from "../components/ProjectCard";
 import ProjectModal from "../components/ProjectModal";
-import { Project } from "../components/types";
+import { Project, Theme } from "../components/types";
 
-const projects: Project[] = [
+const LIGHT_THEME: Theme = {
+    background: "#f5f5f5",
+    card: "#ffffff",
+    text: "#000000",
+    subtext: "#666666",
+    accent: "#ff6b6b",
+    primary: "#4a90e2",
+};
+
+const DARK_THEME: Theme = {
+    background: "#121212",
+    card: "#1e1e1e",
+    text: "#ffffff",
+    subtext: "#b0b0b0",
+    accent: "#ff6b6b",
+    primary: "#64b5f6",
+};
+
+const PROJECTS: Project[] = [
     {
-        title: "Pokémon",
-        description: "A Pokémon companion app with stats and information. Features include detailed Pokédex entries, type effectiveness calculator, team builder, and move set recommendations for competitive play.",
-        image: require("../assets/images/pokemon.png"),
-    },
-    {
-        title: "Sangubat",
-        description: "Community platform for local connections. Connect with neighbors, organize local events, share resources, and build stronger community bonds through our intuitive social platform.",
+        title: "San Gubat",
+        description: "Interactive pixel art game with retro aesthetics",
         image: require("../assets/images/sangubat.png"),
+        technologies: ["React", "Canvas API", "TypeScript"],
+        features: ["Pixel-perfect rendering", "Smooth animations", "Retro UI"],
     },
     {
         title: "Starkiller",
-        description: "Gaming stats tracker and analytics dashboard. Track your performance across multiple games, analyze your improvement over time, and compare stats with friends.",
+        description:
+            "Space shooter game inspired by classic arcade games. Features wave-based enemies, power-ups, and smooth arcade-style gameplay.",
         image: require("../assets/images/starkiller.png"),
+        technologies: ["JavaScript", "Canvas API", "Game Physics"],
+        features: ["Classic arcade mechanics", "Enemy AI", "Score tracking"],
     },
     {
-        title: "Webport",
-        description: "Portfolio website builder and hosting platform. Create stunning portfolio websites with our drag-and-drop builder, custom domains, and integrated hosting solution.",
+        title: "Portfolio Website",
+        description:
+            "Personal portfolio website showcasing creative design work and projects with a modern, user-friendly interface.",
         image: require("../assets/images/webport.png"),
+        technologies: ["React", "TypeScript", "CSS"],
+        features: ["Responsive design", "Smooth animations", "Project gallery"],
+    },
+    {
+        title: "Pokémon Companion",
+        description:
+            "A Pokémon companion app with stats and information. Features include detailed Pokédex entries, type effectiveness calculator, and team builder.",
+        image: require("../assets/images/pokemon.png"),
+        technologies: ["React Native", "API Integration", "TypeScript"],
+        features: ["Pokédex database", "Type calculator", "Team management"],
     },
 ];
 
-export default function App(): React.JSX.Element {
-    const [darkMode, setDarkMode] = useState<boolean>(true);
+export default function Index() {
+    const [darkMode, setDarkMode] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const theme = darkMode ? darkTheme : lightTheme;
+    const [modalVisible, setModalVisible] = useState(false);
 
-    const handleProjectPress = (project: Project): void => {
+    const theme = darkMode ? DARK_THEME : LIGHT_THEME;
+
+    const openLink = (url?: string) => {
+        if (url) Linking.openURL(url);
+    };
+
+    const onPressProject = (project: Project) => {
         setSelectedProject(project);
         setModalVisible(true);
     };
 
-    const handleCloseModal = (): void => {
-        setModalVisible(false);
-        setTimeout(() => setSelectedProject(null), 300);
-    };
-
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
-            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-
-            <FlatList<Project>
-                ListHeaderComponent={
-                    <>
-                        <ProfileHeader theme={theme} />
-                        <SkillList theme={theme} />
-                        <Text style={[styles.sectionTitle, { color: theme.text }]}>
-                            Projects
-                        </Text>
-                    </>
-                }
-                data={projects}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                    <ProjectCard
-                        project={item}
-                        theme={theme}
-                        onPress={() => handleProjectPress(item)}
-                    />
-                )}
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
+            <FlatList contentContainerStyle={styles.listContent}
+                      ListHeaderComponent={
+                          <>
+                              <View style={styles.header}>
+                                  <Text style={[styles.title, { color: theme.text }]}>
+                                      Hi, I'm Renzo 👋 </Text>
+                                  <Text style={[styles.subtitle, { color: theme.subtext }]}>
+                                      Creative Designer!
+                                  </Text>
+                                  <Text style={[styles.description, { color: theme.subtext }]}>
+                                      I craft art, designs, and all things creative, bringing them to life as interactive and user-friendly web experiences.
+                                  </Text>
+                              </View>
+                              <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+                              <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                                  My Projects </Text>
+                          </>
+                      }
+                      data={PROJECTS}
+                      keyExtractor={(item, index) => `${item.title}-${index}`}
+                      renderItem={({ item }) => (
+                          <ProjectCard project={item}
+                                       theme={theme}
+                                       onPress={() => onPressProject(item)}
+                          />
+                      )}
+                      showsVerticalScrollIndicator={false}
             />
 
-            <ProjectModal
-                visible={modalVisible}
-                project={selectedProject}
-                theme={theme}
-                onClose={handleCloseModal}
+            <ProjectModal visible={modalVisible}
+                          project={selectedProject}
+                          theme={theme}
+                          onClose={() => setModalVisible(false)}
             />
-        </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 20,
-    },
-    sectionTitle: {
-        fontSize: 22,
-        fontWeight: "600",
-        marginVertical: 16,
-    },
+    container: { flex:1 },
+    listContent: { padding:20 },
+    header: { marginBottom:24, alignItems: "center" },
+    title: { fontSize:32, fontWeight: "bold", marginBottom:8 },
+    subtitle: { fontSize:20, fontWeight: "600", marginBottom:12 },
+    description: { fontSize:15, textAlign: "center", lineHeight:22 },
+    sectionTitle: { fontSize:24, fontWeight: "700", marginTop:24, marginBottom:16 },
 });
