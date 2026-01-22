@@ -5,7 +5,7 @@ import { styles } from "../app/styles";
 type Props = {
     darkMode: boolean;
     setDarkMode: (value: boolean) => void;
-    onNavigate: (view: "home" | "projects" | "contact") => void;
+    onNavigate: (section: "home" | "skills" | "projects" | "contact") => void;
 };
 
 export default function DynamicIslandMenu({ darkMode, setDarkMode, onNavigate }: Props) {
@@ -23,14 +23,14 @@ export default function DynamicIslandMenu({ darkMode, setDarkMode, onNavigate }:
         setMenuOpen(!menuOpen);
     };
 
-    const handleNavigate = (view: "home" | "projects" | "contact") => {
-        onNavigate(view);
+    const handleNavigate = (section: "home" | "skills" | "projects" | "contact") => {
+        onNavigate(section);
         toggleMenu();
     };
 
     const menuHeight = menuAnimation.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, 200],
+        outputRange: [0, 260],
     });
 
     const menuOpacity = menuAnimation.interpolate({
@@ -56,6 +56,9 @@ export default function DynamicIslandMenu({ darkMode, setDarkMode, onNavigate }:
             >
                 <TouchableOpacity style={styles.menuItem} onPress={() => handleNavigate("home")}>
                     <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={() => handleNavigate("skills")}>
+                    <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>Skills</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuItem} onPress={() => handleNavigate("projects")}>
                     <Text style={[styles.menuItemText, { color: "#e8e8e8" }]}>Projects</Text>
